@@ -17,24 +17,56 @@ class Gitp:
     # TODO: CLEAN UP!!!!!!
     # rewrite this whole parameter thing.
     # First off, this is not autotestable!
-    if(len(parameters) > 0 and parameters[0] == "--help"):
-      parameters = parameters[1:]
-      res = dictTree_find(commandDB, parameters)
-      if(res.branch == None):
-        print("Error: command unknown")
-        return
+    if(len(parameters) == 0 or parameters[0] == "--help"):
+      help = """
+gitp [commands]
 
-      expl = ""
-      if(len(parameters) == 0):
-        expl = programName
-      else:
-        expl = "`" + " ".join (parameters) + "`"
+  branch
+  ======
 
-      print(expl + " has the following subcommands:")
+      branch checkout remote <remote branch name>
+        Checkout and switch to <remote branch name>
 
-      for branchKey, branch in res.branch.items():
-        print("   " + str(branchKey))
+      branch create <branch name>
+        Create a new branch and switch to it
+
+      branch connect to <remote branch name>
+        Connect current branch with remote branch with the same name
+
+      branch rename <new branch name>
+        Renames the current branch to <new branch name>
+
+      branch reset to remote <remote branch name>
+        Reset local changes to the remote state
+        Ignore untracked files
+        Ignore gitignore files
+
+      branch delete remote <remote branch name>
+        Deletes remote branch (DANGEROUS)
+
+  branches
+  ========
+
+      branches show remote
+
+      branches show local
+
+      branches show all
+
+  commit
+  ======
+
+      commit delete last
+        Delete last commit and discard all changes
+
+      commit undo last
+        Undo last commit but keep the changes
+
+
+      """
+      print(help)
       return
+
 
     result = assembleCommand(commandDB, parameters)
 

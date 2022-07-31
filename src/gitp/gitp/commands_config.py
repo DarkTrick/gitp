@@ -63,7 +63,7 @@ commandDB = {
     "create": {
       "${1}": {
         "__cmd": ["git checkout -b ${1}"],
-        "__description": ["create a new branch and switch to it"]
+        "__description": ["Create a new branch and switch to it"]
       }
     },
     "connect": {
@@ -115,6 +115,7 @@ commandDB = {
       },
     "delete":{
       "remote":{
+        "__description": ["Deletes remote branch"],
         # Automatically show "sorry, I will not run this command for ${branch}.
         # Please do it manually: ${__cmd}
         # TODO: not working, yet
@@ -160,7 +161,15 @@ commandDB = {
         "__cmd": ["git reset --hard HEAD~1"],
         "__cmddescription": ["`HEAD~1` will delete the last 'one' commit.",
                            "`hard` will delete all changes"],
-        "__description": [""]
+        "__description": ["Delete last commit and discard all changes"]
+      }
+    },
+    "undo": {
+      "last": {
+        "__cmd": ["git reset HEAD~1"],
+        "__cmddescription": ["`HEAD~1` will remove the last 'one' commit from history.",
+                           "No other option given <=> keep the changes"],
+        "__description": ["Undo last commit but keep the changes"]
       }
     }
   }
