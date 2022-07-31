@@ -22,6 +22,7 @@ class Gitp:
       res = dictTree_find(commandDB, parameters)
       if(res.branch == None):
         print("Error: command unknown")
+        return
 
       expl = ""
       if(len(parameters) == 0):
