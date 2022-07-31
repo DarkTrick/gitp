@@ -1,4 +1,5 @@
 
+from ast import Dict
 import typing
 
 
@@ -26,3 +27,26 @@ def makeArray(value) -> typing.List:
     return value
 
   return [value]
+
+
+def string_replaceWithDict(value: str, replaceDict: Dict):
+  """
+  Replaces substrings in `value` with values defined in `variableDict`
+  """
+  ret = value
+  for oldStr, newStr in replaceDict.items():
+    ret = ret.replace(oldStr, newStr)
+
+  return ret
+
+
+def stringArray_replaceWithDict(values: typing.List[str], variableDict: Dict) -> typing.List[str]:
+  """
+  like string_replaceWithDict, but works on a string array
+  """
+  ret = []
+  for value in values:
+    newValue = string_replaceWithDict(value, variableDict)
+    ret.append(newValue)
+
+  return ret

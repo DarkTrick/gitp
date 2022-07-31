@@ -1,6 +1,6 @@
 import unittest
 
-from commons.utils import isArray
+from commons.utils import isArray, string_replaceWithDict
 
 
 class isArrayTest(unittest.TestCase):
@@ -15,3 +15,30 @@ class isArrayTest(unittest.TestCase):
     self.assertTrue (isArray([]), "empty array")
     self.assertTrue (isArray([[]]), "empty array of empty array")
     self.assertTrue (isArray(["a"]), "filled array")
+
+
+class String_replaceWithDictTest(unittest.TestCase):
+  def test_noReplacement(self):
+    # setup
+    input = "zz"
+    replaceDict = {"a": "b"}
+    expected = input
+
+    # run
+    actual = string_replaceWithDict(input,replaceDict)
+
+    # check
+    self.assertEqual(actual, expected)
+
+  def test_a(self):
+    # setup
+    replaceDict = {
+      "a": "b",
+      "c": "d"
+    }
+
+    # run
+    actual = string_replaceWithDict("aacc",replaceDict)
+
+    # check
+    self.assertEqual(actual, "bbdd")

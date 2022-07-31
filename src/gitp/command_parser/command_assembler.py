@@ -3,25 +3,26 @@ from commons.errorable import Errorable
 from command_parser.command import Command
 from command_parser.dict_tree_finder import dictTree_find
 
-def assembleCommand(commandDB: Dict, command: List[str]) -> Errorable:
+
+def assembleCommand(commandDB: Dict, commandInput: List[str]) -> Errorable:
   """
-  @return: Errorable<string | None, string>
+  @return: Errorable<Command>
   """
   ret = Errorable()
 
-  result = dictTree_find(commandDB, command)
+  result = dictTree_find(commandDB, commandInput)
 
-  if(result == None):
+  if(result.branch == None):
     ret.error = "Command not found"
     return ret
 
-  retCommand = Command.fromDict(result)
+  command = Command.fromDict(result.branch, result.variableDictionary)
 
-  if (not retCommand.isExecutable()):
+  if (not command.isExecutable()):
     ret.error = "Command not found"
     return ret
 
-  ret.value = retCommand
+  ret.value = command
   return ret
 
 

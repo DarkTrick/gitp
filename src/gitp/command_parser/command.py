@@ -1,5 +1,5 @@
 from typing import List, Dict
-from commons.utils import makeArray, dict_get
+from commons.utils import makeArray, dict_get, string_replaceWithDict, stringArray_replaceWithDict
 
 class Command:
 
@@ -12,53 +12,39 @@ class Command:
 
 
   @staticmethod
-  def fromDict(dict: Dict):
+  def fromDict(dict: Dict, variableDictionary: Dict = {}):
 
     """
     Create `Command` from a string dictionary
 
-    __cmd:
-      Type: array
-      Specifies the commands to be run.
-
-    __description:
+    @param dict:
+      __cmd:
         Type: array
-        Explanation shown for the command when --help was run.
+        Specifies the commands to be run.
 
-    __cmddescription:
-        Type: array
-        Explanation of how the command works. This is shown,
-        when the user shows the command of a command.
-    __constraints:
-        Type: Array
-        Set contraints for a command. E.g. branches the command will
-        not work on
-        Constraints:
-          - `disabled for: $branchname`
-            - Will not allow the command to run for the branch $branchname.
+      __description:
+          Type: array
+          Explanation shown for the command when --help was run.
 
-    __approve:
-      Type: object
-          Spawns a question asked the user prior to run the command.
+      __cmddescription:
+          Type: array
+          Explanation of how the command works. This is shown,
+          when the user shows the command of a command.
 
-          _msg:
-            Type: Array
-            Text shown on screen
-          _actions
-            Type: Array of key-value pairs:
-            key: possible answer to type in
-                Empty key = empty input / unknown input
-            value: command to be executed.
-                `_run` = run the command.
-                `_abort` = abort the execution of the command immediately.
+    @param variableDictionary:
+      dictionary of variable values contained in dict.__cmd
 
     """
 
     def getDictArray(key) -> List:
       return makeArray(dict_get(dict, key, []))
 
+
     me = Command()
     me.commands = getDictArray ("__cmd")
+
+    me.commands = stringArray_replaceWithDict(me.commands, variableDictionary)
+
     me.description = getDictArray ("__description")
     me.commandDescription = getDictArray ("__cmddescription")
     me.constraints = getDictArray("__constraints")

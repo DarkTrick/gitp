@@ -107,3 +107,34 @@ class isExecutable(unittest.TestCase):
 
     # check
     self.assertFalse(actual)
+
+
+class fromDictWithVariablesTest(unittest.TestCase):
+
+  def test_oneVariable(self):
+    # setup
+    input = {"__cmd": ["${1} ${1}"]}
+
+    # run
+    actual = Command.fromDict(input, {"${1}": "a"})
+
+    # check
+    expected = ["a a"]
+    self.assertEqual(actual.commands, expected)
+
+  def test_twoVariables(self):
+    # setup
+    input = {"__cmd": ["${1} ${2}"]}
+    variables = {
+      "${1}": "a",
+      "${2}": "b",
+    }
+    expected = ["a b"]
+
+
+    # run
+    actual = Command.fromDict(input, variables)
+
+    # check
+
+    self.assertEqual(actual.commands, expected)
