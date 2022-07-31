@@ -19,7 +19,7 @@ def assembleCommand(commandDB: Dict, commandInput: List[str]) -> Errorable:
   command = Command.fromDict(result.branch, result.variableDictionary)
 
   if (not command.isExecutable()):
-    ret.error = "Command not found"
+    ret.error = "Command not executable"
     return ret
 
   ret.value = command
