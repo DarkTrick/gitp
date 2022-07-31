@@ -115,30 +115,32 @@ commandDB = {
       },
     "delete":{
       "remote":{
-        "__description": ["Deletes remote branch"],
-        # Automatically show "sorry, I will not run this command for ${branch}.
-        # Please do it manually: ${__cmd}
-        # TODO: not working, yet
-        "__constraints": [
-                          "disabled for: master",
-                          "disabled for: develop",
-                          "disabled for: release",
+        "${1}": {
+          "__description": ["Deletes remote branch"],
+          # Automatically show "sorry, I will not run this command for ${branch}.
+          # Please do it manually: ${__cmd}
+          # TODO: not working, yet
+          "__constraints": [
+                            "disabled for: master",
+                            "disabled for: develop",
+                            "disabled for: release",
+                            ],
+          # TODO: not working, yet
+          "__approve": {"_msg":[
+                            "DANGER ZONE",
+                            "===========",
+                            "Delete the following ***remote branch(`origin`):",
+                            "      ${remotebranch}",
+                            "Are you sure to delete? (yes/no): ",
                           ],
-        # TODO: not working, yet
-        "__approve": {"_msg":[
-                          "DANGER ZONE",
-                          "===========",
-                          "Delete the following ***remote branch(`origin`):",
-                          "      ${remotebranch}",
-                          "Are you sure to delete? (yes/no): ",
-                        ],
-                        "_actions": [
-                          {"yes": "_run"},
-                          {"no": "_abort"},
-                          {"": "_abort "}
-                        ]
-                       },
-        "__cmd": ["git push origin --delete"],
+                          "_actions": [
+                            {"yes": "_run"},
+                            {"no": "_abort"},
+                            {"": "_abort "}
+                          ]
+                        },
+          "__cmd": ["git push origin --delete ${1}"],
+        }
       },
     },
   },
