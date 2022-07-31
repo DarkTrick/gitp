@@ -114,6 +114,12 @@ commandDB = {
         },
       },
     "delete":{
+      "local": {
+        "${1}": {
+          "__cmd": ["git branch -D ${1}"],
+          "__description": ["Deletes a local branch"],
+        }
+      },
       "remote":{
         "${1}": {
           "__description": ["Deletes remote branch"],

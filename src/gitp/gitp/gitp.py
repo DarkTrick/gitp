@@ -54,8 +54,13 @@ gitp [options] [commands]
         Ignore untracked files
         Ignore gitignore files
 
+
       branch delete remote <remote branch name>
         Deletes remote branch (DANGEROUS)
+
+      branch delete local <remote branch name>
+        Deletes local branch (DANGEROUS)
+
 
   branches
   ========
