@@ -11,79 +11,87 @@ class Gitp:
   def __init__(self):
     pass
 
+
+  def showHelp(self):
+    help = """
+  gitp [options] [commands]
+
+    [options]
+    =========
+        --help
+          Shows a description of the command
+
+        --show
+          Shows which git commands the command would trigger
+
+        --explain
+          Shows an explanation of what the git commands do
+
+
+
+    branch
+    ======
+
+        branch checkout remote <remote branch name>
+          Checkout and switch to <remote branch name>
+
+        branch create <branch name>
+          Create a new branch and switch to it
+
+        branch connect to <remote branch name>
+          Connect current branch with remote branch with the same name
+
+        branch rename <new branch name>
+          Renames the current branch to <new branch name>
+
+        branch reset to remote <remote branch name>
+          Reset local changes to the remote state
+          Ignore untracked files
+          Ignore gitignore files
+
+
+        branch delete remote <remote branch name>
+          Deletes remote branch (DANGEROUS)
+
+        branch delete local <remote branch name>
+          Deletes local branch (DANGEROUS)
+
+
+    branches
+    ========
+
+        branches show remote
+
+        branches show local
+
+        branches show all
+
+    commit
+    ======
+
+        commit delete last
+          Delete last commit and discard all changes
+
+        commit undo last
+          Undo last commit but keep the changes
+
+
+        """
+    print(help)
+
   def run(self, programName: str, parameters: List):
 
 
     # TODO: CLEAN UP!!!!!!
     # rewrite this whole parameter thing.
     # First off, this is not autotestable!
-    if(len(parameters) == 1 and parameters[0] == "--help"):
-      help = """
-gitp [options] [commands]
-
-  [options]
-  =========
-      --help
-        Shows a description of the command
-
-      --show
-        Shows which git commands the command would trigger
-
-      --explain
-        Shows an explanation of what the git commands do
-
-
-
-  branch
-  ======
-
-      branch checkout remote <remote branch name>
-        Checkout and switch to <remote branch name>
-
-      branch create <branch name>
-        Create a new branch and switch to it
-
-      branch connect to <remote branch name>
-        Connect current branch with remote branch with the same name
-
-      branch rename <new branch name>
-        Renames the current branch to <new branch name>
-
-      branch reset to remote <remote branch name>
-        Reset local changes to the remote state
-        Ignore untracked files
-        Ignore gitignore files
-
-
-      branch delete remote <remote branch name>
-        Deletes remote branch (DANGEROUS)
-
-      branch delete local <remote branch name>
-        Deletes local branch (DANGEROUS)
-
-
-  branches
-  ========
-
-      branches show remote
-
-      branches show local
-
-      branches show all
-
-  commit
-  ======
-
-      commit delete last
-        Delete last commit and discard all changes
-
-      commit undo last
-        Undo last commit but keep the changes
-
-
-      """
-      print(help)
+    if(len(parameters) == 0):
+      self.showHelp()
       return
+    if(len(parameters) == 1):
+      if(parameters[0] == "--help"):
+        self.showHelp()
+        return
 
     # TODO: implement properly!
     showCommandHelp = False
