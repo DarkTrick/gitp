@@ -49,10 +49,6 @@
 """
 
 commandDB = {
-  "version": {
-    "__cmd": ["git --version"],
-    "__description": ["shows the version of git"],
-  },
   "branch": {
     "checkout": {
       "remote": {
