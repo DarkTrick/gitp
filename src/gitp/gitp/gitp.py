@@ -17,9 +17,22 @@ class Gitp:
     # TODO: CLEAN UP!!!!!!
     # rewrite this whole parameter thing.
     # First off, this is not autotestable!
-    if(len(parameters) == 0 or parameters[0] == "--help"):
+    if(len(parameters) == 1 and parameters[0] == "--help"):
       help = """
-gitp [commands]
+gitp [options] [commands]
+
+  [options]
+  =========
+      --help
+        Shows a description of the command
+
+      --show
+        Shows which git commands the command would trigger
+
+      --explain
+        Shows an explanation of what the git commands do
+
+
 
   branch
   ======
@@ -67,6 +80,23 @@ gitp [commands]
       print(help)
       return
 
+    # TODO: implement properly!
+    showCommandHelp = False
+    if(parameters[0] == "--help"):
+      showCommandHelp = True
+      parameters = parameters[1:]
+
+    # TODO: implement properly!
+    showCommandToRun = False
+    if(parameters[0] == "--show"):
+      showCommandToRun = True
+      parameters = parameters[1:]
+
+    # TODO: implement properly!
+    explainCommand = False
+    if(parameters[0] == "--explain"):
+      explainCommand = True
+      parameters = parameters[1:]
 
     result = assembleCommand(commandDB, parameters)
 
@@ -74,7 +104,30 @@ gitp [commands]
       print("Error: ", result.error)
       return
 
+    if(showCommandHelp):
+      print("\n".join(result.value.description))
+      return
 
+    if(showCommandToRun):
+      print("The following commands will be run:")
+      print("   ", end="")
+      print("\n   ".join(result.value.commands))
+      return
+
+    if(explainCommand):
+
+      print("The following commands will be run:")
+      print("   ", end="")
+      print("\n   ".join(result.value.commands))
+
+      print("")
+      print("Explanation:")
+      print("   ", end="")
+      print("\n   ".join(result.value.commandDescription))
+      return
+
+
+    # run command
     for strCommand in result.value.commands:
       commandArray: List[str] = strCommand.split(" ")
       subprocess.run(commandArray)
