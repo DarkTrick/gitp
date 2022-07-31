@@ -67,8 +67,9 @@ commandDB = {
       }
     },
     "connect": {
-      "__cmd": ["git branch --set-upstream-to=origin/${currentbranch}"],
-      "__description": ["Connect current branch with remote branch with the same name"],
+      # TODO: add support for this
+      #"__cmd": ["git branch --set-upstream-to=origin/${currentbranch}"],
+      #"__description": ["Connect current branch with remote branch with the same name"],
       "to": {
         "${1}":{
           "__cmd": ["git branch --set-upstream-to=origin/${1}"],
@@ -86,27 +87,43 @@ commandDB = {
     "reset": {
       "to":{
         "remote":{
-          "__cmd": ["git fetch origin",
-                    "git checkout ${currentbranch}",
-                    "git reset --hard origin/${currentbranch}",
-                    "git branch",
-                    ],
-          "__cmddescription": ["At the end, just show all branches"],
-          "__description": ["Reset local changes to the remote state",
-                            "Ignore untracked files",
-                            "Ignore gitignore files"],
-          },
+          "${1}": {
+            "__cmd": ["git fetch origin",
+                      "git checkout ${1}",
+                      "git reset --hard origin/${1}",
+                      "git branch",
+                      ],
+            "__cmddescription": ["At the end, just show all branches"],
+            "__description": ["Reset local changes to the remote state",
+                              "Ignore untracked files",
+                              "Ignore gitignore files"],
+            }
+        }
+        # TODO: add support for ${currentbranch}
+          #{
+          #"__cmd": ["git fetch origin",
+          #          "git checkout ${currentbranch}",
+          #          "git reset --hard origin/${currentbranch}",
+          #          "git branch",
+          #          ],
+          #"__cmddescription": ["At the end, just show all branches"],
+          #"__description": ["Reset local changes to the remote state",
+          #                  "Ignore untracked files",
+          #                  "Ignore gitignore files"],
+          #}
         },
       },
     "delete":{
       "remote":{
         # Automatically show "sorry, I will not run this command for ${branch}.
         # Please do it manually: ${__cmd}
+        # TODO: not working, yet
         "__constraints": [
                           "disabled for: master",
                           "disabled for: develop",
                           "disabled for: release",
                           ],
+        # TODO: not working, yet
         "__approve": {"_msg":[
                           "DANGER ZONE",
                           "===========",
