@@ -2,6 +2,8 @@
   File structure
   ==============
 
+  No entry must start with `--`
+
   __cmd:
       Type: array
       Specifies the commands to be run.
@@ -46,7 +48,11 @@
       - denotes the remote branch of the branch you're working on
 """
 
-commands = {
+commandDB = {
+  "version": {
+    "__cmd": ["git --version"],
+    "__description": ["shows the version of git"],
+  },
   "branch": {
     "checkout": {
       "remote": {
