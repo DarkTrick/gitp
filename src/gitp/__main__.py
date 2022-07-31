@@ -1,3 +1,6 @@
-from gitp.main import main
+import sys
+from gitp.gitp import Gitp
 
-main.generic_main()
+print("test")
+program = Gitp()
+program.run(sys.argv[0], sys.argv[1:])

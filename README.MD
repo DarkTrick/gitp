@@ -1,5 +1,4 @@
-What is this?
-=============
+# What is this?
 gitp (=git power) is a command line tool with the objective to improve user experience of git.
 
 Concrete example: "How do I delete a remote branch?"
@@ -15,8 +14,7 @@ git branch delete remote
 ```
 
 
-Background
-==========
+# Background
 Sometimes git feels like perl: whatever you want to do, you need a google search and the result is so hard to remember, that you need to check it everytime you want to run it.
 
 Internet: "Idiot! Just use git alias!".
@@ -27,7 +25,41 @@ In general the problem with git alias is, that
 2) your aliases are different to your peer's aliases. So you cannot share commands. Gitp will provide a more standardized way for aliases.
 
 
-Dependencies
-============
+# Dependencies
+
 
 - `git` must be installed
+
+
+# How to use
+
+
+
+# Development
+
+## Setup
+
+`python3 -m pip install pytest`
+
+## Testing
+
+`py.test`
+
+
+
+#Technical stuff
+
+
+## How this works (technical)
+
+Under the hood, gitp is basically an advances version of `git alias`.
+Gitp will call `git` commands from the command line as subprocess. Of course, this introduces all security risks that come along with this method.
+
+
+## Software goals
+
+The following is a list possible abstract goals a software could have, and a rating how much effort is currently put into it.
+
+- Usability: 100%
+- Security: 0%
+  - Do not run as root!
