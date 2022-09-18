@@ -39,10 +39,14 @@ In general the problem with git alias is, that
 
 ## Setup
 
-`python3 -m pip install pytest`
+
 
 ## Testing
 
+Have pytest:
+`python3 -m pip install pytest`
+
+run
 `py.test`
 
 
@@ -63,3 +67,4 @@ The following is a list possible abstract goals a software could have, and a rat
 - Usability: 100%
 - Security: 0%
   - Do not run as root!
+
