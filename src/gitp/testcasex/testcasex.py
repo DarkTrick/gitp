@@ -17,8 +17,8 @@ class _ActualTestValue:
     if(None != msg):
       _msg = "\n" + "   Message:  " + str(msg)
 
-    return "\n" + "   Expected: " + str(self.expectedValue) + \
-           "\n" + "   Actual:   " + str(self.actualValue)   + \
+    return "\n" + "   Expected:  '" + str(self.expectedValue) + "'" + \
+           "\n" + "   Actual:    '" + str(self.actualValue)   + "'" + \
             _msg
 
   def toBe(self, expectedValue, msg = None):
