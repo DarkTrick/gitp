@@ -1,19 +1,21 @@
 import unittest
+from testcasex.testcasex import TestCaseX
 from command_parser.dict_tree_finder.dict_tree_finder import dictTree_find
 
-# TODO: move to distinct location
 
-class DictTreeFind(unittest.TestCase):
+
+
+class DictTreeFind(TestCaseX):
 
   def test_emptyTree_emptyPath(self):
     # setup
     dictTree = {}
 
     # run
-    actual = dictTree_find(dictTree, []).branch
+    result = dictTree_find(dictTree, [])
 
     # check
-    self.assertEqual(actual, dictTree)
+    self.expect (result.branch).toBe (dictTree)
 
 
 
@@ -22,13 +24,14 @@ class DictTreeFind(unittest.TestCase):
     dictTree = {}
 
     # run
-    actual = dictTree_find (dictTree, ["a"]).branch
+    result = dictTree_find (dictTree, ["a"])
 
     # check
-    self.assertEqual (actual, None)
+    self.expect (result.branch).toBe (None)
 
 
-class DictTreeFind_MultipleLevels(unittest.TestCase):
+
+class DictTreeFind_MultipleLevels(TestCaseX):
 
   def setUp(self):
     self.dictTree = {
@@ -49,71 +52,68 @@ class DictTreeFind_MultipleLevels(unittest.TestCase):
 
   def test_A(self):
     # run
-    res = dictTree_find (self.dictTree, ["1","1.1","1.1.1"])
-    actual = res.branch
+    input = ["1","1.1","1.1.1"]
+    result = dictTree_find (self.dictTree, input)
 
     # check
-    self.assertEqual (actual, None)
-
+    self.expect (result.branch).toBe (None)
 
   def test_B(self):
     # run
-    res = dictTree_find (self.dictTree, ["2","2.1"])
-    actual = res.branch["v"]
+    input = ["2","2.1"]
+    result = dictTree_find (self.dictTree, input)
 
     # check
-    self.assertEqual (actual, "b.a")
+    self.expect (result.branch["v"]).toBe ("b.a")
 
   def test_C(self):
     # run
-    res = dictTree_find (self.dictTree, ["2","2.3", "2.3.2"])
-    actual = res.branch["v"]
+    input = ["2","2.3", "2.3.2"]
+    result = dictTree_find (self.dictTree, input)
 
     # check
-    self.assertEqual (actual, "b.c.b")
+    self.expect (result.branch["v"]).toBe ("b.c.b")
 
   def test_D(self):
     # run
-    res = dictTree_find (self.dictTree, ["3"])
-    actual = res.branch
+    input = ["3"]
+    result = dictTree_find (self.dictTree, input)
 
     # check
-    self.assertEqual (actual, None)
+    self.expect (result.branch).toBe (None)
 
 
   def check(self, searchPath, expected):
     # run
-    res = dictTree_find (self.dictTree, searchPath)
-    actual = res.branch
+    input = searchPath
+    result = dictTree_find (self.dictTree, input)
 
     # check
-    self.assertEqual (actual, expected)
+    self.expect (result.branch).toBe (expected)
 
 
 
-class DictTreeFind_MemorizeVariables(unittest.TestCase):
+class DictTreeFind_MemorizeVariables(TestCaseX):
   def test_oneVariable(self):
     # setup
     dictTree = {"${1}": {"v": "a"}}
     searchPath = ["a"]
 
     # run
-    res = dictTree_find (dictTree, searchPath)
-    actual = res.variableDictionary
+    result = dictTree_find (dictTree, searchPath)
 
     # check
-    self.assertTrue ("${1}" in actual)
-    self.assertEqual(actual["${1}"], "a")
+    self.expect (result.variableDictionary).toContain("${1}")
+    self.expect (result.variableDictionary["${1}"]).toBe ("a")
 
-  def test_twoVariable(self):
+  def test_twoVariables(self):
     # setup
     dictTree = {"${1}": {"${2}": {"v": "a"}}}
     searchPath = ["a", "b"]
 
     # run
-    res = dictTree_find (dictTree, searchPath)
-    actual = res.variableDictionary
+    result = dictTree_find (dictTree, searchPath)
 
     # check
-    self.assertTrue ("${2}" in actual)
-    self.assertEqual(actual["${2}"], "b")
+    self.expect (result.variableDictionary).toContain("${2}")
+    self.expect (result.variableDictionary["${2}"]).toBe ("b")

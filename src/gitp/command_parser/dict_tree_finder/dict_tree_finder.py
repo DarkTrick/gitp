@@ -7,6 +7,9 @@ class DictTreeFindResult:
     self.branch: Dict | None = {}
     self.variableDictionary: Dict = {}
 
+    """途中で見つけたノードを保管すする"""
+    self.node_stack: list[dict] = []
+
 
 def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
   """

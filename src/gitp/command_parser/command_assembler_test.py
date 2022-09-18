@@ -1,7 +1,7 @@
-import unittest
+from testcasex.testcasex import TestCaseX
 from command_parser.command_assembler import assembleCommand
 
-class CommandAssemblerTest(unittest.TestCase):
+class CommandAssemblerTest(TestCaseX):
 
 
   def test_command_not_found(self):
@@ -10,10 +10,10 @@ class CommandAssemblerTest(unittest.TestCase):
     input = ["asdf"]
 
     # run
-    actual = assembleCommand(cmdDB,input)
+    result = assembleCommand(cmdDB,input)
 
     # check
-    self.assertTrue(actual.failed())
+    self.expect(result.failed()).toBe (True)
 
 
 
@@ -27,14 +27,14 @@ class CommandAssemblerTest(unittest.TestCase):
 
     # check
     with self.subTest("Correct status?"):
-      self.assertTrue(actual.succeeded())
+      self.expect (actual.succeeded()).toBe (True)
 
     with self.subTest("Correct type?"):
-      self.assertTrue(actual != None)
+      self.expect (actual).toNotBe (None)
 
     with self.subTest("Correct content?"):
-     self.assertEqual(len(actual.value.commands), 1)
-     self.assertEqual(actual.value.commands[0], "foo")
+     self.expect (len(actual.value.commands)).toBe (1)
+     self.expect(actual.value.commands[0]).toBe ("foo")
 
 
   def test_multiple_commands(self):
@@ -51,8 +51,8 @@ class CommandAssemblerTest(unittest.TestCase):
     actual = assembleCommand(cmdDB,input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "git branch")
-    self.assertEqual(actual.value.commands[1], "git merge")
+    self.expect(actual.value.commands[0]).toBe ("git branch")
+    self.expect(actual.value.commands[1]).toBe ("git merge")
 
 
 
@@ -69,7 +69,7 @@ class CommandAssemblerTest(unittest.TestCase):
     self.assertTrue(actual.failed())
 
 
-class AssembleCommandWithVariablesTest(unittest.TestCase):
+class AssembleCommandWithVariablesTest(TestCaseX):
 
   def test_oneLevel_oneVariable(self):
     # setup
@@ -80,7 +80,7 @@ class AssembleCommandWithVariablesTest(unittest.TestCase):
     actual = assembleCommand(cmdDB, input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "a")
+    self.expect(actual.value.commands[0]).toBe ("a")
 
   def test_oneLevel_oneVariable(self):
     # setup
@@ -91,7 +91,7 @@ class AssembleCommandWithVariablesTest(unittest.TestCase):
     actual = assembleCommand(cmdDB, input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "foo a")
+    self.expect(actual.value.commands[0]).toBe ("foo a")
 
 
   def test_secondLevel(self):
@@ -107,9 +107,9 @@ class AssembleCommandWithVariablesTest(unittest.TestCase):
     actual = assembleCommand(cmdDB, input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "foo a")
+    self.expect(actual.value.commands[0]).toBe ("foo a")
 
-  def test_twoVariable(self):
+  def test_twoVariables(self):
     # setup
     cmdDB = {
               "${1}": {
@@ -122,7 +122,7 @@ class AssembleCommandWithVariablesTest(unittest.TestCase):
     actual = assembleCommand(cmdDB, input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "foo a b")
+    self.expect(actual.value.commands[0]).toBe ("foo a b")
 
 
   def test_overlap_UseNonVariable(self):
@@ -137,5 +137,5 @@ class AssembleCommandWithVariablesTest(unittest.TestCase):
     actual = assembleCommand(cmdDB, input)
 
     # check
-    self.assertEqual(actual.value.commands[0], "b")
+    self.expect(actual.value.commands[0]).toBe ("b")
 

@@ -1,0 +1,1 @@
+This package wraps unittest.testcase in a more readable interface
