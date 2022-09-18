@@ -12,11 +12,11 @@ def assembleCommand(commandDB: Dict, commandInput: List[str]) -> Errorable:
 
   result = dictTree_find(commandDB, commandInput)
 
-  if(result.branch == None):
+  if(result.resultNode == None):
     ret.error = "Command not found"
     return ret
 
-  command = Command.fromDict(result.branch, result.variableDictionary)
+  command = Command.fromDict(result.resultNode, result.variableDictionary)
 
   if (not command.isExecutable()):
     ret.error = "Command not executable"

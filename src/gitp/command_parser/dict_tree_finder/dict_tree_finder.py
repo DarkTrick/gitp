@@ -4,7 +4,7 @@ from typing import List, Dict
 
 class DictTreeFindResult:
   def __init__(self):
-    self.branch: Dict | None = None
+    self.resultNode: Dict | None = None
     self.variableDictionary: Dict = {}
 
     """
@@ -14,7 +14,7 @@ class DictTreeFindResult:
 
 
   def foundPath(self):
-    return self.branch != None
+    return self.resultNode != None
 
 
 def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
@@ -38,7 +38,7 @@ def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindRe
 
   # successfully finish searching
   if(searchPath == []):
-    result.branch = dictTree
+    result.resultNode = dictTree
     return result
 
   # find `key` in `dictTree`
