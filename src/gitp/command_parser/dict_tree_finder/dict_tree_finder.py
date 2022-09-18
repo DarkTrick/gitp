@@ -30,8 +30,8 @@ def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
 
 
 def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindResult, isVariable = False) -> DictTreeFindResult:
-  def _isVariable(branchKey: str):
-    return branchKey[:2] == "${" and branchKey[-1] == "}"
+  def _isVariable(nodeKey: str):
+    return nodeKey[:2] == "${" and nodeKey[-1] == "}"
 
   if(False == isVariable):
     result.nodeStack.append (dictTree)
@@ -54,10 +54,10 @@ def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindRe
 
 
   # check, if the next branch has a variable key
-  for branchKey, branch in dictTree.items():
-    if(_isVariable(branchKey)):
-      result.variableDictionary[branchKey] = searchKey
-      newTree = dictTree[branchKey]
+  for nodeKey, node in dictTree.items():
+    if(_isVariable(nodeKey)):
+      result.variableDictionary[nodeKey] = searchKey
+      newTree = dictTree[nodeKey]
       newSearchPath = searchPath[1:]
       return _dictTree_find(newTree, newSearchPath, result, True)
 
