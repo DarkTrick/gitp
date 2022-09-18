@@ -1,5 +1,5 @@
 import unittest
-from command_parser.dict_tree_finder import dictTree_find
+from command_parser.dict_tree_finder.dict_tree_finder import dictTree_find
 
 # TODO: move to distinct location
 
