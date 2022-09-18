@@ -92,6 +92,77 @@ class DictTreeFind_MultipleLevels(TestCaseX):
     self.expect (result.branch).toBe (expected)
 
 
+class DictTreeFindTest_NodeLevels(TestCaseX):
+
+  def setUp(self):
+    self.dictTree = {
+      "1": {
+        "1.1": {"v": "a.a"},
+        "1.2": {"v": "a.b"},
+      },
+      "2": {
+        "2.1": {"v": "b.a"},
+        "2.2": {"v": "b.b"},
+        "2.3": {
+          "2.3.1": {"v": "b.c.a"},
+          "2.3.2": {"v": "b.c.b"},
+          "2.3.3": {"v": "b.c.c"},
+        }
+      },
+      "${1}": {
+        "a": {"v": "${1}.a"},
+        "b": {"v": "${1}.b"}
+      }
+    }
+
+  def test_level1(self):
+    # setup
+    input = ["1"]
+
+    # run
+    result = dictTree_find (self.dictTree, input)
+
+    # check
+    self.expect(len(result.nodeStack)).toBe (2)
+    self.expect(result.nodeStack[0]).toBe (self.dictTree)
+    self.expect(result.nodeStack[1]).toBe (self.dictTree["1"])
+
+  def test_level2(self):
+    # setup
+    input = ["2", "2.3"]
+
+    # run
+    result = dictTree_find (self.dictTree, input)
+
+    # check
+    self.expect(len(result.nodeStack)).toBe (3)
+    self.expect(result.nodeStack[0]).toBe (self.dictTree)
+    self.expect(result.nodeStack[1]).toBe (self.dictTree["2"])
+    self.expect(result.nodeStack[2]).toBe (self.dictTree["2"]["2.3"])
+
+  def test_variableNode(self):
+    # setup
+    input = ["A", "b"]
+
+    # run
+    result = dictTree_find (self.dictTree, input)
+
+    # check
+    self.expect(len(result.nodeStack)).toBe (2)
+    self.expect(result.nodeStack[0]).toBe (self.dictTree)
+    self.expect(result.nodeStack[1]).toBe (self.dictTree["${1}"]["b"])
+
+  def test_caseNotFound(self):
+    # setup
+    input = ["2", "notFound"]
+
+    # run
+    result = dictTree_find (self.dictTree, input)
+
+    # check
+    self.expect(len(result.nodeStack)).toBe (2)
+    self.expect(result.nodeStack[0]).toBe (self.dictTree)
+    self.expect(result.nodeStack[1]).toBe (self.dictTree["2"])
 
 class DictTreeFind_MemorizeVariables(TestCaseX):
   def test_oneVariable(self):

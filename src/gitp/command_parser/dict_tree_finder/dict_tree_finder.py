@@ -7,9 +7,11 @@ class DictTreeFindResult:
     self.branch: Dict | None = {}
     self.variableDictionary: Dict = {}
 
-    """Stores antermediate nodes, including root and leaf
-       but no variable nodes"""
+    """
+      Stores the path taken, excluding variable nodes and leafs
+    """
     self.nodeStack: list[dict] = []
+
 
 
 def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
@@ -24,10 +26,14 @@ def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
 
 
 
-def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindResult) -> DictTreeFindResult:
-  def isVariable(branchKey: str):
+def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindResult, isVariable = False) -> DictTreeFindResult:
+  def _isVariable(branchKey: str):
     return branchKey[:2] == "${" and branchKey[-1] == "}"
 
+  if(False == isVariable):
+    result.nodeStack.append (dictTree)
+
+  # successfully finish searching
   if(searchPath == []):
     result.branch = dictTree
     return result
@@ -45,15 +51,15 @@ def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindRe
     return _dictTree_find(newTree, newSearchPath, result)
 
 
-  # check, if the next branch is a variable
+  # check, if the next branch has a variable key
   for branchKey, branch in dictTree.items():
-    if(isVariable(branchKey)):
+    if(_isVariable(branchKey)):
       result.variableDictionary[branchKey] = searchKey
       result.branch = branch
       newTree = dictTree[branchKey]
       newSearchPath = searchPath[1:]
-      return _dictTree_find(newTree, newSearchPath, result)
+      return _dictTree_find(newTree, newSearchPath, result, True)
 
-  # not match found, so reaturn None
+  # no match found, so return None
   result.branch = None
   return result
