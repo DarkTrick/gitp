@@ -1,7 +1,7 @@
 from typing import Dict, List
 from commons.errorable import Errorable
 from command_parser.command import Command
-from command_parser.dict_tree_finder.dict_tree_finder import dictTree_find
+from command_parser.dict_tree.dict_tree_finder import dictTree_find
 
 
 def assembleCommand(commandDB: Dict, commandInput: List[str]) -> Errorable:

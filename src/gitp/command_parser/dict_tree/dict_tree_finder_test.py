@@ -1,6 +1,6 @@
 import unittest
 from testcasex.testcasex import TestCaseX
-from command_parser.dict_tree_finder.dict_tree_finder import dictTree_find
+from command_parser.dict_tree.dict_tree_finder import dictTree_find
 
 
 

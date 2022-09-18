@@ -2,6 +2,8 @@
 
 from typing import List, Dict
 
+from command_parser.dict_tree.dict_tree_helper_test import Node
+
 class DictTreeFindResult:
   def __init__(self):
     self.resultNode: Dict | None = None
@@ -30,8 +32,6 @@ def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
 
 
 def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindResult, isVariable = False) -> DictTreeFindResult:
-  def _isVariable(nodeKey: str):
-    return nodeKey[:2] == "${" and nodeKey[-1] == "}"
 
   if(False == isVariable):
     result.nodeStack.append (dictTree)
@@ -55,7 +55,7 @@ def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindRe
 
   # check, if the next branch has a variable key
   for nodeKey, node in dictTree.items():
-    if(_isVariable(nodeKey)):
+    if(Node.isVariable(nodeKey)):
       result.variableDictionary[nodeKey] = searchKey
       newTree = dictTree[nodeKey]
       newSearchPath = searchPath[1:]

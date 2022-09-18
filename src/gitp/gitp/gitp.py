@@ -2,7 +2,7 @@ from typing import List
 
 from gitp.commands_config import commandDB
 from command_parser.command_assembler import assembleCommand
-from gitp.command_parser.dict_tree_finder.dict_tree_finder import dictTree_find
+from gitp.command_parser.dict_tree.dict_tree_finder import dictTree_find
 
 import subprocess
 
