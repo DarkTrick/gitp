@@ -7,7 +7,8 @@ class DictTreeFindResult:
     self.branch: Dict | None = {}
     self.variableDictionary: Dict = {}
 
-    """途中で見つけたノードを保管すする"""
+    """Stores antermediate nodes, including root and leaf
+       but no variable nodes"""
     self.nodeStack: list[dict] = []
 
 
@@ -24,7 +25,7 @@ def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
 
 
 def _dictTree_find(dictTree: Dict, searchPath: List[str], result: DictTreeFindResult) -> DictTreeFindResult:
-  def isVariable(string):
+  def isVariable(branchKey: str):
     return branchKey[:2] == "${" and branchKey[-1] == "}"
 
   if(searchPath == []):
