@@ -16,6 +16,7 @@ class DictTreeFind(TestCaseX):
 
     # check
     self.expect (result.branch).toBe (dictTree)
+    self.expect (result.foundPath ()).toBe (True)
 
 
 
@@ -28,6 +29,7 @@ class DictTreeFind(TestCaseX):
 
     # check
     self.expect (result.branch).toBe (None)
+    self.expect (result.foundPath ()).toBe (False)
 
 
 
@@ -56,6 +58,7 @@ class DictTreeFind_MultipleLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (False)
     self.expect (result.branch).toBe (None)
 
   def test_B(self):
@@ -64,6 +67,7 @@ class DictTreeFind_MultipleLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect (result.branch["v"]).toBe ("b.a")
 
   def test_C(self):
@@ -72,6 +76,7 @@ class DictTreeFind_MultipleLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect (result.branch["v"]).toBe ("b.c.b")
 
   def test_D(self):
@@ -80,16 +85,8 @@ class DictTreeFind_MultipleLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (False)
     self.expect (result.branch).toBe (None)
-
-
-  def check(self, searchPath, expected):
-    # run
-    input = searchPath
-    result = dictTree_find (self.dictTree, input)
-
-    # check
-    self.expect (result.branch).toBe (expected)
 
 
 class DictTreeFindTest_NodeLevels(TestCaseX):
@@ -123,6 +120,7 @@ class DictTreeFindTest_NodeLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect(len(result.nodeStack)).toBe (2)
     self.expect(result.nodeStack[0]).toBe (self.dictTree)
     self.expect(result.nodeStack[1]).toBe (self.dictTree["1"])
@@ -135,6 +133,7 @@ class DictTreeFindTest_NodeLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect(len(result.nodeStack)).toBe (3)
     self.expect(result.nodeStack[0]).toBe (self.dictTree)
     self.expect(result.nodeStack[1]).toBe (self.dictTree["2"])
@@ -148,6 +147,7 @@ class DictTreeFindTest_NodeLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect(len(result.nodeStack)).toBe (2)
     self.expect(result.nodeStack[0]).toBe (self.dictTree)
     self.expect(result.nodeStack[1]).toBe (self.dictTree["${1}"]["b"])
@@ -160,6 +160,7 @@ class DictTreeFindTest_NodeLevels(TestCaseX):
     result = dictTree_find (self.dictTree, input)
 
     # check
+    self.expect (result.foundPath ()).toBe (False)
     self.expect(len(result.nodeStack)).toBe (2)
     self.expect(result.nodeStack[0]).toBe (self.dictTree)
     self.expect(result.nodeStack[1]).toBe (self.dictTree["2"])
@@ -174,6 +175,7 @@ class DictTreeFind_MemorizeVariables(TestCaseX):
     result = dictTree_find (dictTree, searchPath)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect (result.variableDictionary).toContain("${1}")
     self.expect (result.variableDictionary["${1}"]).toBe ("a")
 
@@ -186,5 +188,6 @@ class DictTreeFind_MemorizeVariables(TestCaseX):
     result = dictTree_find (dictTree, searchPath)
 
     # check
+    self.expect (result.foundPath ()).toBe (True)
     self.expect (result.variableDictionary).toContain("${2}")
     self.expect (result.variableDictionary["${2}"]).toBe ("b")

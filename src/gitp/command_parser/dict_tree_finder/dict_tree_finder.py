@@ -13,6 +13,9 @@ class DictTreeFindResult:
     self.nodeStack: list[dict] = []
 
 
+  def foundPath(self):
+    return self.branch != None
+
 
 def dictTree_find(dictTree: Dict, searchPath: List) -> DictTreeFindResult:
   """
