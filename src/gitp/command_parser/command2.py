@@ -1,6 +1,8 @@
 from typing import List, Dict
 
 from command_parser.dict_tree.dict_tree_finder import DictTreeFindResult
+from command_parser.text import TextsDefault
+
 from commons.utils import dict_get, strArray_toString
 
 
@@ -25,7 +27,7 @@ class Command2:
     return ""
 
   def getText(self):
-    arrDescription = dict_get(self.dictTreeInfo.resultNode,DESC,"")
+    arrDescription = dict_get(self.dictTreeInfo.resultNode,DESC,[TextsDefault.noDescription])
     description = strArray_toString (arrDescription)
 
     return description

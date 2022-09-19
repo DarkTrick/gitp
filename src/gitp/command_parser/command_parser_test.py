@@ -30,20 +30,20 @@ class DivideMetaCommandsTest(TestCaseX):
 class CommandParserTest_Help(TestCaseX):
 
   def test_rootDescription_empty(self):
-    input = {}
-    result = parse(input,["--help"])
-    self.expect (result.getText()).toBe ("")
+    cmdDict = {}
+    result = parse(cmdDict,["--help"])
+    self.expect (result.getText()).toBe ("<no description>")
 
   def test_rootDescription(self):
-    input = {
+    cmdDict = {
       "__description": ["a"]
     }
-    result = parse(input,["--help"])
+    result = parse(cmdDict,["--help"])
     self.expect (result.getText()).toBe ("a")
 
   # TODO1: FIRST SOLVE ABOVE
   #def test_subCommands(self):
-  #  input = {
+  #  cmdDict = {
   #    "__description": "desc root",
   #    "a": {
   #      "__description": "desc a"
@@ -52,5 +52,5 @@ class CommandParserTest_Help(TestCaseX):
   #      "__description": "desc b"
   #    }
   #  }
-  #  result = parse (input, ["--help"])
+  #  result = parse (cmdDict, ["--help"])
   #  self.expect (result.getTextOutput ()). toBe ("")
