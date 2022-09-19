@@ -28,6 +28,11 @@ def makeArray(value) -> typing.List:
 
   return [value]
 
+def strArray_toString(strArray: list[str], prefix: str = "") -> str:
+  """Converts a list of strings to a string (one line per item).
+     `prefix` is prefexed on every line
+  """
+  return (prefix + "\n").join(strArray)
 
 def string_replaceWithDict(value: str, replaceDict: Dict):
   """
