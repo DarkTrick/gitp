@@ -12,7 +12,7 @@ class DictTreeFindResult:
     """
       Stores the path taken, excluding variable nodes and leafs
     """
-    self.nodeStack: list[dict] = []
+    self.nodeStack: list[Dict] = []
 
 
   def foundPath(self):
