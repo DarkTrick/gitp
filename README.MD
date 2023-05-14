@@ -3,32 +3,19 @@ gitp is a command line tool aiming to simplify the git interface.
 
 Concrete example: "How do I delete a remote branch?"
 
-**git**
-```
-git push origin --delete
-```
+- **git**: `git push origin --delete`
+- **gitp**: `git branch delete --remote`
 
-**gitp**
-```
-git branch delete --remote
-```
-
-# Background
+## Background
 Sometimes git feels like perl: for whatever you want to do, you need a internet search and the result is so hard to remember that you need to check it everytime you want to run it.
 
-If you cannot relate to this, feel free to ignore this project.
+# Install
+## Install With pip
+`pip install git+https://github.com/DarkTrick/gitp.git#subdirectory=src`
 
-# Dependencies
-- Python 3.10
-- `git` must be installed
+**Note** `pip install gitp` will install a different (unrelated) package with a clashed name
 
-# How to use
-## Install
-### Install With pip
-**not yet possible**
-(The current gitp package registered on pip is a different one)
-
-### Install From Source
+## Install From Source
 ```
 git clone https://github.com/DarkTrick/gitp.git
 cd gitp/src
@@ -38,9 +25,13 @@ pip install .
 uninstall from source
 `pip uninstall gitp`
 
-## run
+# run
 `gitp --help`
 
+
+# Dependencies
+- Python 3.10
+- `git` must be installed
 
 # Development
 
