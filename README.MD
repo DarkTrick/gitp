@@ -1,5 +1,5 @@
 # What is this?
-gitp (=git power) is a command line tool with the objective to improve user experience of git.
+gitp is a command line tool aiming to simplify the git interface.
 
 Concrete example: "How do I delete a remote branch?"
 
@@ -10,61 +10,65 @@ git push origin --delete
 
 **gitp**
 ```
-git branch delete remote
+git branch delete --remote
 ```
 
-
 # Background
-Sometimes git feels like perl: whatever you want to do, you need a google search and the result is so hard to remember, that you need to check it everytime you want to run it.
+Sometimes git feels like perl: for whatever you want to do, you need a internet search and the result is so hard to remember that you need to check it everytime you want to run it.
 
-Internet: "Idiot! Just use git alias!".
-
-Well, feel free to ignore this project.
-In general the problem with git alias is, that
-1) you first need to know the actual correct git command (and the existence of git alias) in order to set it up.
-2) your aliases are different to your peer's aliases. So you cannot share commands. Gitp will provide a more standardized way for aliases.
-
+If you cannot relate to this, feel free to ignore this project.
 
 # Dependencies
-
-
+- Python 3.10
 - `git` must be installed
 
-
 # How to use
+## Install
+### Install With pip
+ `pip install gitp`
 
+### Install From Source
+```
+cd src
+pip install .
+```
+
+uninstall from source
+`pip uninstall gitp`
+
+## run
+`gitp --help`
 
 
 # Development
 
-## Setup
+## venv
+(No external packages are needed so far; so no venv should be necessary)
 
-
+## Architecture
+Commands are implemented in the `commands` subfolder
 
 ## Testing
+(not maintained, yet)
+```
+cd src
+python3 -m unittest
+```
+## Build
+```
+cd src
+pip install build # <-- only if not yet installed
+python -m build
+```
 
-Have pytest:
-`python3 -m pip install pytest`
-
-run
-`py.test`
-
-
-
-#Technical stuff
-
-
-## How this works (technical)
-
-Under the hood, gitp is basically an advances version of `git alias`.
-Gitp will call `git` commands from the command line as subprocess. Of course, this introduces all security risks that come along with this method.
+## How gitp works
+It uses Python's `subprocess` to run git commands
 
 
-## Software goals
+# Project Character
 
 The following is a list possible abstract goals a software could have, and a rating how much effort is currently put into it.
 
 - Usability: 100%
-- Security: 0%
-  - Do not run as root!
+- Security: 0% (Do not run as root)
 
