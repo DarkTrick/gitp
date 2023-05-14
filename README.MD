@@ -25,11 +25,13 @@ If you cannot relate to this, feel free to ignore this project.
 # How to use
 ## Install
 ### Install With pip
- `pip install gitp`
+**not yet possible**
+(The current gitp package registered on pip is a different one)
 
 ### Install From Source
 ```
-cd src
+git clone https://github.com/DarkTrick/gitp.git
+cd gitp/src
 pip install .
 ```
 
