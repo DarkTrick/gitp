@@ -1,5 +1,3 @@
-import sys
-from gitp.gitp import Gitp
+from .gitp import main
 
-program = Gitp()
-program.run(sys.argv[0], sys.argv[1:])
+main.main()
